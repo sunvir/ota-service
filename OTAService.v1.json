@@ -505,7 +505,10 @@
               }
             }
           }
-        }
+        },
+        "tags": [
+          "ECU"
+        ]
       },
       "delete": {
         "summary": "Delete ECU Type",
@@ -523,6 +526,9 @@
             "in": "query",
             "name": "ecuTypeId"
           }
+        ],
+        "tags": [
+          "ECU"
         ]
       },
       "patch": {
@@ -558,7 +564,10 @@
             }
           },
           "description": ""
-        }
+        },
+        "tags": [
+          "ECU"
+        ]
       }
     }
   },
