@@ -367,9 +367,9 @@
         ]
       }
     },
-    "/vehicleInfo": {
+    "/vehicleType": {
       "get": {
-        "summary": "Get VehicleInfo",
+        "summary": "Get VehicleType",
         "tags": [],
         "responses": {
           "200": {
@@ -386,7 +386,7 @@
             }
           }
         },
-        "operationId": "get-vehicleInfo",
+        "operationId": "get-vehicleType",
         "parameters": [
           {
             "schema": {
@@ -417,11 +417,11 @@
             "name": "region"
           }
         ],
-        "description": "Returns list of vehicles that match parameters sepcified in query."
+        "description": "Returns list of vehicles types that match parameters specified in query."
       },
       "post": {
         "summary": "Create New Vehicle Type",
-        "operationId": "post-vehicleInfo",
+        "operationId": "post-vehicleType",
         "responses": {
           "200": {
             "description": "OK",
@@ -444,7 +444,8 @@
           }
         },
         "description": "Add a new vehicle type to the database."
-      }
+      },
+      "parameters": []
     }
   },
   "components": {
