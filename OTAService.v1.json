@@ -10,7 +10,8 @@
   },
   "servers": [
     {
-      "url": "https://sunvir.stoplight.io/mocks/sunvir/ota-updates/318994"
+      "url": "https://sunvir.stoplight.io/mocks/sunvir/ota-service/318994",
+      "description": ""
     }
   ],
   "paths": {
