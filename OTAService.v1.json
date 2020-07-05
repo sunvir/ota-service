@@ -449,7 +449,29 @@
           "vehicle"
         ]
       },
-      "parameters": []
+      "parameters": [],
+      "delete": {
+        "summary": "Delete Vehicle Type",
+        "operationId": "delete-vehicleType",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "vehicleTypeId"
+          }
+        ],
+        "tags": [
+          "vehicle"
+        ],
+        "description": "Delete Vehicle Type"
+      }
     },
     "/ecuType": {
       "get": {
