@@ -578,6 +578,9 @@
         "required": [
           "lat",
           "long"
+        ],
+        "x-tags": [
+          "models"
         ]
       }
     },
