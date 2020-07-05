@@ -1,609 +1,618 @@
 {
-    "openapi": "3.0.0",
-    "info": {
-        "title": "OTA Updates",
-        "version": "1.0",
-        "description": "API for interacting with Carota OTA update system",
-        "contact": {
-            "name": "Sunvir Gujral"
-        }
-    },
-    "servers": [
-        {
-            "url": "https://sunvir.stoplight.io/mocks/sunvir/ota-updates/318994"
-        }
-    ],
-    "paths": {
-        "/files": {
-            "get": {
-                "summary": "GET Files",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/File"
-                                    }
-                                },
-                                "examples": {}
-                            }
-                        }
-                    }
+  "openapi": "3.0.0",
+  "info": {
+    "title": "OTA Updates",
+    "version": "1.0",
+    "description": "API for interacting with Carota OTA update system",
+    "contact": {
+      "name": "Sunvir Gujral"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://sunvir.stoplight.io/mocks/sunvir/ota-updates/318994"
+    }
+  ],
+  "paths": {
+    "/files": {
+      "get": {
+        "summary": "GET Files",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/File"
+                  }
                 },
-                "operationId": "get-files",
-                "parameters": [
-                    {
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        },
-                        "in": "query",
-                        "name": "newer_than",
-                        "description": "limit results to files that are timestamped later than this (ms since epoch)"
-                    },
-                    {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "in": "query",
-                        "name": "ecu_type",
-                        "required": true
-                    }
-                ],
-                "description": "Gets all updates available for an ecu_type.",
-                "tags": [
-                    "files"
-                ]
-            },
-            "parameters": [],
-            "post": {
-                "summary": "POST File",
-                "operationId": "add-file",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/File"
-                                }
-                            }
-                        }
-                    }
-                },
-                "description": "Add file to update server",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "fileinfo": {
-                                        "$ref": "#/components/schemas/NewFile"
-                                    },
-                                    "file": {
-                                        "type": "string",
-                                        "description": "Base64-encoded string containing file contents"
-                                    },
-                                    "fileUri": {
-                                        "type": "string",
-                                        "description": "URI to location of file "
-                                    }
-                                }
-                            },
-                            "examples": {}
-                        }
-                    }
-                },
-                "tags": [
-                    "files"
-                ]
+                "examples": {}
+              }
             }
+          }
         },
-        "/getFile/{fileId}": {
-            "get": {
-                "summary": "GET File",
-                "tags": [
-                    "files"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/File"
-                                },
-                                "examples": {
-                                    "example-1": {
-                                        "value": {
-                                            "id": "U7730",
-                                            "data": {
-                                                "filename": "string",
-                                                "owner": -9223372036854776000,
-                                                "ecu_type": "string",
-                                                "version": 0
-                                            },
-                                            "timestamp": 23372036854776000
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "operationId": "get-file",
-                "description": "Get a file using its fileId.",
-                "parameters": []
+        "operationId": "get-files",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer",
+              "format": "int64"
             },
-            "parameters": [
-                {
-                    "schema": {
-                        "type": "string"
-                    },
-                    "name": "fileId",
-                    "in": "path",
-                    "required": true
+            "in": "query",
+            "name": "newer_than",
+            "description": "limit results to files that are timestamped later than this (ms since epoch)"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "ecu_type",
+            "required": true
+          }
+        ],
+        "description": "Gets all updates available for an ecu_type.",
+        "tags": [
+          "files"
+        ]
+      },
+      "parameters": [],
+      "post": {
+        "summary": "POST File",
+        "operationId": "add-file",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/File"
                 }
+              }
+            }
+          }
+        },
+        "description": "Add file to update server",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fileinfo": {
+                    "$ref": "#/components/schemas/NewFile"
+                  },
+                  "file": {
+                    "type": "string",
+                    "description": "Base64-encoded string containing file contents"
+                  },
+                  "fileUri": {
+                    "type": "string",
+                    "description": "URI to location of file "
+                  }
+                }
+              },
+              "examples": {}
+            }
+          }
+        },
+        "tags": [
+          "files"
+        ]
+      }
+    },
+    "/getFile/{fileId}": {
+      "get": {
+        "summary": "GET File",
+        "tags": [
+          "files"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/File"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "id": "U7730",
+                      "data": {
+                        "filename": "string",
+                        "owner": -9223372036854776000,
+                        "ecu_type": "string",
+                        "version": 0
+                      },
+                      "timestamp": 23372036854776000
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-file",
+        "description": "Get a file using its fileId.",
+        "parameters": []
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "fileId",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
+    "/diffs/gen": {
+      "get": {
+        "summary": "Generate Diff Package",
+        "tags": [
+          "operations",
+          "diff"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "format": "uri",
+                  "description": "",
+                  "properties": {
+                    "refid": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "Reference id for this request that can be passed as a query parameter to diff/ready endpoint to check on  diff pkg is ready."
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-diffs-gen",
+        "description": "Start generating a diffpkg.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "description": "fileID for current file already installed on device which will be updated.",
+            "name": "cfid",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "nfid",
+            "description": "fileId for new version.",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "ecuType",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "/diffs/ready": {
+      "get": {
+        "summary": "Check Diff Pkg ready",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "uri": {
+                      "type": "string",
+                      "description": "URI of generated diff pkg, if it is ready."
+                    },
+                    "ready": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-diffs-ready",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "refid",
+            "description": "Reference id returned by diff/gen endpoint."
+          }
+        ],
+        "description": "Check if a diffpkg is ready.",
+        "tags": [
+          "operations",
+          "diff"
+        ]
+      }
+    },
+    "/vehicles/{vid}": {
+      "get": {
+        "summary": "Get Vehicle",
+        "tags": [
+          "vehicle"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Vehicle"
+                    },
+                    {
+                      "$ref": "#/components/schemas/VehicleInfo"
+                    }
+                  ]
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-vehicles",
+        "description": "Retrieves information on specified vehicle Id.  Can be used to get general information about the vehicle by setting `allInfo` to `true`.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "boolean",
+              "default": "false"
+            },
+            "in": "query",
+            "name": "allInfo",
+            "description": "Include all vehicle info if `true`.",
+            "allowEmptyValue": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "vid",
+          "in": "path",
+          "required": true,
+          "description": "Vehicle Id, could be VIN."
+        }
+      ],
+      "post": {
+        "summary": "Add New Vehicle",
+        "operationId": "post-vehicle",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vehicle"
+                }
+              }
+            }
+          }
+        },
+        "description": "Add vehicle to database",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewVehicle"
+              }
+            }
+          }
+        },
+        "tags": [
+          "vehicle"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "File": {
+        "title": "File",
+        "type": "object",
+        "x-examples": {
+          "file1": {
+            "id": "U7732",
+            "data": {
+              "filename": "SA515M_v2.pkg",
+              "owner": 77325,
+              "ecu_type": "TCU-apps",
+              "version": 2
+            },
+            "timestamp": 1593830489000
+          }
+        },
+        "description": "",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "$ref": "#/components/schemas/NewFile"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "upload_by": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "timestamp"
+        ]
+      },
+      "NewFile": {
+        "title": "NewFile",
+        "type": "object",
+        "x-examples": {
+          "newfile_data": {
+            "filename": "SA515M_v2.pkg",
+            "ecu_type": "TCU-apps",
+            "version": 2
+          }
+        },
+        "properties": {
+          "filename": {
+            "type": "string"
+          },
+          "ecu_type": {
+            "type": "string"
+          },
+          "version": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "filename"
+        ]
+      },
+      "Error": {
+        "title": "Error",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "x-tags": [
+          "models"
+        ]
+      },
+      "EcuType": {
+        "title": "EcuType",
+        "type": "object",
+        "properties": {
+          "ecuTypeId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "manufacturer": {
+            "type": "string"
+          },
+          "os": {
+            "type": "string",
+            "enum": [
+              "android",
+              "linux",
+              "qnx-host",
+              "qnx"
             ]
+          }
         },
-        "/diffs/gen": {
-            "get": {
-                "summary": "Generate Diff Package",
-                "tags": [
-                    "operations",
-                    "diff"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "format": "uri",
-                                    "description": "",
-                                    "properties": {
-                                        "refid": {
-                                            "type": "string",
-                                            "format": "uuid",
-                                            "description": "Reference id for this request that can be passed as a query parameter to diff/ready endpoint to check on  diff pkg is ready."
-                                        }
-                                    }
-                                }
-                            },
-                            "application/xml": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {}
-                                }
-                            }
-                        }
-                    }
-                },
-                "operationId": "get-diffs-gen",
-                "description": "Start generating a diffpkg.",
-                "parameters": [
-                    {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "in": "query",
-                        "description": "fileID for current file already installed on device which will be updated.",
-                        "name": "cfid",
-                        "required": true
-                    },
-                    {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "in": "query",
-                        "name": "nfid",
-                        "description": "fileId for new version.",
-                        "required": true
-                    },
-                    {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "in": "query",
-                        "name": "ecuType",
-                        "description": ""
-                    }
-                ]
+        "required": [
+          "ecuTypeId"
+        ],
+        "x-tags": [
+          "models"
+        ]
+      },
+      "Vehicle": {
+        "title": "Vehicle",
+        "type": "object",
+        "description": "Vehicle information including status of all managed ECUs in vehicle.",
+        "properties": {
+          "vid": {
+            "type": "string"
+          },
+          "ecus": {
+            "type": "array",
+            "description": "ECU ids",
+            "items": {
+              "$ref": "#/components/schemas/EcuStatus"
             }
+          },
+          "added": {
+            "type": "string",
+            "format": "date-time",
+            "description": "date-time vehicle was added to database"
+          },
+          "changed_by": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "last_change": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "EcuStatus": {
+        "title": "EcuStatus",
+        "type": "object",
+        "description": "Status of each unique ECU across all managed vehicles.",
+        "properties": {
+          "ecuId": {
+            "type": "string"
+          },
+          "imageVersion": {
+            "type": "number"
+          },
+          "lastUpdate": {
+            "type": "integer",
+            "format": "int64",
+            "description": "timestamp in ms"
+          },
+          "ecuType": {
+            "type": "string"
+          }
         },
-        "/diffs/ready": {
-            "get": {
-                "summary": "Check Diff Pkg ready",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "uri": {
-                                            "type": "string",
-                                            "description": "URI of generated diff pkg, if it is ready."
-                                        },
-                                        "ready": {
-                                            "type": "boolean"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "operationId": "get-diffs-ready",
-                "parameters": [
-                    {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "in": "query",
-                        "name": "refid",
-                        "description": "Reference id returned by diff/gen endpoint."
-                    }
-                ],
-                "description": "Check if a diffpkg is ready.",
-                "tags": [
-                    "operations",
-                    "diff"
-                ]
-            }
-        },
-        "/vehicles/{vid}": {
-            "get": {
-                "summary": "Get Vehicle",
-                "tags": [
-                    "vehicle"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "anyOf": [
-                                        {
-                                            "$ref": "#/components/schemas/Vehicle"
-                                        },
-                                        {
-                                            "$ref": "#/components/schemas/VehicleInfo"
-                                        }
-                                    ]
-                                }
-                            },
-                            "application/xml": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {}
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Error"
-                                }
-                            }
-                        }
-                    }
-                },
-                "operationId": "get-vehicles",
-                "description": "Retrieves information on specified vehicle Id.  Can be used to get general information about the vehicle by setting `allInfo` to `true`.",
-                "parameters": [
-                    {
-                        "schema": {
-                            "type": "boolean",
-                            "default": "false"
-                        },
-                        "in": "query",
-                        "name": "allInfo",
-                        "description": "Include all vehicle info if `true`.",
-                        "allowEmptyValue": true
-                    }
-                ]
-            },
-            "parameters": [
-                {
-                    "schema": {
-                        "type": "string"
-                    },
-                    "name": "vid",
-                    "in": "path",
-                    "required": true,
-                    "description": "Vehicle Id, could be VIN."
-                }
+        "x-tags": [
+          "models"
+        ]
+      },
+      "NewVehicle": {
+        "title": "NewVehicle",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "VehicleInfo": {
+        "title": "VehicleInfo",
+        "type": "object",
+        "properties": {
+          "vid": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "oem": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "loc": {
+            "$ref": "#/components/schemas/Location"
+          }
+        }
+      },
+      "Location": {
+        "title": "Location",
+        "type": "object",
+        "description": "Location",
+        "properties": {
+          "lat": {
+            "type": "number"
+          },
+          "long": {
+            "type": "number"
+          },
+          "elev": {
+            "type": "number"
+          },
+          "elevUnits": {
+            "type": "string",
+            "enum": [
+              "feet",
+              "meters"
             ],
-            "post": {
-                "summary": "Add New Vehicle",
-                "operationId": "post-vehicle",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Vehicle"
-                                }
-                            }
-                        }
-                    }
-                },
-                "description": "Add vehicle to database",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/NewVehicle"
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "vehicle"
-                ]
-            }
-        }
+            "default": "meters"
+          }
+        },
+        "required": [
+          "lat",
+          "long"
+        ]
+      }
     },
-    "components": {
-        "schemas": {
-            "File": {
-                "title": "File",
-                "type": "object",
-                "x-examples": {
-                    "file1": {
-                        "id": "U7732",
-                        "data": {
-                            "filename": "SA515M_v2.pkg",
-                            "owner": 77325,
-                            "ecu_type": "TCU-apps",
-                            "version": 2
-                        },
-                        "timestamp": 1593830489000
-                    }
-                },
-                "description": "",
-                "properties": {
-                    "fileId": {
-                        "type": "string",
-                        "format": "uuid"
-                    },
-                    "data": {
-                        "$ref": "#/components/schemas/NewFile"
-                    },
-                    "timestamp": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "upload_by": {
-                        "type": "string",
-                        "format": "uuid"
-                    }
-                },
-                "required": [
-                    "timestamp"
-                ]
-            },
-            "NewFile": {
-                "title": "NewFile",
-                "type": "object",
-                "x-examples": {
-                    "newfile_data": {
-                        "filename": "SA515M_v2.pkg",
-                        "ecu_type": "TCU-apps",
-                        "version": 2
-                    }
-                },
-                "properties": {
-                    "filename": {
-                        "type": "string"
-                    },
-                    "ecu_type": {
-                        "type": "string"
-                    },
-                    "version": {
-                        "type": "number"
-                    }
-                },
-                "required": [
-                    "filename"
-                ]
-            },
-            "Error": {
-                "title": "Error",
-                "type": "object",
-                "properties": {
-                    "code": {
-                        "type": "integer"
-                    },
-                    "message": {
-                        "type": "string"
-                    }
-                }
-            },
-            "EcuType": {
-                "title": "EcuType",
-                "type": "object",
-                "properties": {
-                    "ecuTypeId": {
-                        "type": "string"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "manufacturer": {
-                        "type": "string"
-                    },
-                    "os": {
-                        "type": "string",
-                        "enum": [
-                            "android",
-                            "linux",
-                            "qnx-host",
-                            "qnx"
-                        ]
-                    }
-                },
-                "required": [
-                    "ecuTypeId"
-                ]
-            },
-            "Vehicle": {
-                "title": "Vehicle",
-                "type": "object",
-                "description": "Vehicle information including status of all managed ECUs in vehicle.",
-                "properties": {
-                    "vid": {
-                        "type": "string"
-                    },
-                    "ecus": {
-                        "type": "array",
-                        "description": "ECU ids",
-                        "items": {
-                            "$ref": "#/components/schemas/EcuStatus"
-                        }
-                    },
-                    "added": {
-                        "type": "string",
-                        "format": "date-time",
-                        "description": "date-time vehicle was added to database"
-                    },
-                    "changed_by": {
-                        "type": "string",
-                        "format": "uuid"
-                    },
-                    "last_change": {
-                        "type": "string",
-                        "format": "date-time"
-                    }
-                }
-            },
-            "EcuStatus": {
-                "title": "EcuStatus",
-                "type": "object",
-                "description": "Status of each unique ECU across all managed vehicles.",
-                "properties": {
-                    "ecuId": {
-                        "type": "string"
-                    },
-                    "imageVersion": {
-                        "type": "number"
-                    },
-                    "lastUpdate": {
-                        "type": "integer",
-                        "format": "int64",
-                        "description": "timestamp in ms"
-                    },
-                    "ecuType": {
-                        "type": "string"
-                    }
-                }
-            },
-            "NewVehicle": {
-                "title": "NewVehicle",
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string"
-                    }
-                }
-            },
-            "VehicleInfo": {
-                "title": "VehicleInfo",
-                "type": "object",
-                "properties": {
-                    "vid": {
-                        "type": "string"
-                    },
-                    "model": {
-                        "type": "string"
-                    },
-                    "oem": {
-                        "type": "string"
-                    },
-                    "color": {
-                        "type": "string"
-                    },
-                    "region": {
-                        "type": "string"
-                    },
-                    "loc": {
-                        "$ref": "#/components/schemas/Location"
-                    }
-                }
-            },
-            "Location": {
-                "title": "Location",
-                "type": "object",
-                "description": "Location",
-                "properties": {
-                    "lat": {
-                        "type": "number"
-                    },
-                    "long": {
-                        "type": "number"
-                    },
-                    "elev": {
-                        "type": "number"
-                    },
-                    "elevUnits": {
-                        "type": "string",
-                        "enum": [
-                            "feet",
-                            "meters"
-                        ],
-                        "default": "meters"
-                    }
-                },
-                "required": [
-                    "lat",
-                    "long"
-                ]
-            }
+    "securitySchemes": {
+      "API Key - 1": {
+        "name": "API Key",
+        "type": "apiKey",
+        "in": "query"
+      },
+      "oath": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "",
+            "tokenUrl": "",
+            "refreshUrl": "",
+            "scopes": {}
+          }
         },
-        "securitySchemes": {
-            "API Key - 1": {
-                "name": "API Key",
-                "type": "apiKey",
-                "in": "query"
-            },
-            "oath": {
-                "type": "oauth2",
-                "flows": {
-                    "authorizationCode": {
-                        "authorizationUrl": "",
-                        "tokenUrl": "",
-                        "refreshUrl": "",
-                        "scopes": {}
-                    }
-                },
-                "description": ""
-            }
-        }
+        "description": ""
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "operations"
     },
-    "tags": [
-        {
-            "name": "operations"
-        },
-        {
-            "name": "diff"
-        },
-        {
-            "name": "files"
-        },
-        {
-            "name": "vehicle"
-        }
-    ]
+    {
+      "name": "diff"
+    },
+    {
+      "name": "files"
+    },
+    {
+      "name": "vehicle"
+    }
+  ]
 }
