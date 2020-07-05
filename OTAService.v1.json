@@ -277,6 +277,9 @@
                     },
                     {
                       "$ref": "#/components/schemas/VehicleInfo"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Location"
                     }
                   ]
                 }
@@ -301,7 +304,7 @@
           }
         },
         "operationId": "get-vehicles",
-        "description": "Retrieves information on specified vehicle Id.  Can be used to get general information about the vehicle by setting `allInfo` to `true`.",
+        "description": "Retrieves information on specified vehicle Id.\n  \nDepending on which optional query parameters (e.g. `incLoc`) are sent, additional information is returned if available.",
         "parameters": [
           {
             "schema": {
@@ -309,9 +312,17 @@
               "default": "false"
             },
             "in": "query",
-            "name": "allInfo",
-            "description": "Include all vehicle info if `true`.",
-            "allowEmptyValue": true
+            "name": "incInfo",
+            "description": "Include additional vehicle info"
+          },
+          {
+            "schema": {
+              "type": "boolean",
+              "default": "false"
+            },
+            "in": "query",
+            "name": "incLoc",
+            "description": "include location information"
           }
         ]
       },
@@ -355,6 +366,85 @@
           "vehicle"
         ]
       }
+    },
+    "/vehicleInfo": {
+      "get": {
+        "summary": "Get VehicleInfo",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VehicleType"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-vehicleInfo",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "vehicleTypeId"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "model"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "oem"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "region"
+          }
+        ],
+        "description": "Returns list of vehicles that match parameters sepcified in query."
+      },
+      "post": {
+        "summary": "Create New Vehicle Type",
+        "operationId": "post-vehicleInfo",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleType"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewVehicleType"
+              }
+            }
+          }
+        },
+        "description": "Add a new vehicle type to the database."
+      }
     }
   },
   "components": {
@@ -394,6 +484,9 @@
         },
         "required": [
           "timestamp"
+        ],
+        "x-tags": [
+          "models"
         ]
       },
       "NewFile": {
@@ -419,6 +512,9 @@
         },
         "required": [
           "filename"
+        ],
+        "x-tags": [
+          "models"
         ]
       },
       "Error": {
@@ -470,9 +566,13 @@
         "title": "Vehicle",
         "type": "object",
         "description": "Vehicle information including status of all managed ECUs in vehicle.",
+        "x-tags": [
+          "models"
+        ],
         "properties": {
           "vid": {
-            "type": "string"
+            "type": "string",
+            "description": "Vehicle ID, could be VIN"
           },
           "ecus": {
             "type": "array",
@@ -493,6 +593,10 @@
           "last_change": {
             "type": "string",
             "format": "date-time"
+          },
+          "vehicleTypeId": {
+            "type": "string",
+            "format": "uuid"
           }
         }
       },
@@ -527,29 +631,25 @@
           "id": {
             "type": "string"
           }
-        }
+        },
+        "x-tags": [
+          "models"
+        ]
       },
-      "VehicleInfo": {
-        "title": "VehicleInfo",
+      "VehicleType": {
+        "title": "VehicleType",
         "type": "object",
+        "x-tags": [
+          "models"
+        ],
         "properties": {
-          "vid": {
-            "type": "string"
+          "vehicleTypeId": {
+            "type": "string",
+            "description": "Unique identifier for vehicle type",
+            "format": "uuid"
           },
-          "model": {
-            "type": "string"
-          },
-          "oem": {
-            "type": "string"
-          },
-          "color": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "loc": {
-            "$ref": "#/components/schemas/Location"
+          "": {
+            "$ref": "#/components/schemas/NewVehicleType"
           }
         }
       },
@@ -583,6 +683,24 @@
         "x-tags": [
           "models"
         ]
+      },
+      "NewVehicleType": {
+        "title": "NewVehicleType",
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string"
+          },
+          "oem": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          }
+        }
       }
     },
     "securitySchemes": {
