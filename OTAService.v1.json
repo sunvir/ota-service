@@ -276,10 +276,10 @@
                       "$ref": "#/components/schemas/Vehicle"
                     },
                     {
-                      "$ref": "#/components/schemas/VehicleInfo"
+                      "$ref": "#/components/schemas/Location"
                     },
                     {
-                      "$ref": "#/components/schemas/Location"
+                      "$ref": "#/components/schemas/VehicleType"
                     }
                   ]
                 }
