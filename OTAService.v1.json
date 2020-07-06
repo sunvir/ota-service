@@ -501,7 +501,7 @@
             "name": "ecuTypeId"
           }
         ],
-        "description": ""
+        "description": "Get ECU Type information"
       },
       "parameters": [],
       "post": {
@@ -530,7 +530,8 @@
         },
         "tags": [
           "ECU"
-        ]
+        ],
+        "description": "Add new ECY Type to database"
       },
       "delete": {
         "summary": "Delete ECU Type",
@@ -551,7 +552,8 @@
         ],
         "tags": [
           "ECU"
-        ]
+        ],
+        "description": "Delete ECU Type"
       },
       "patch": {
         "summary": "Modify ECU Type",
@@ -589,7 +591,8 @@
         },
         "tags": [
           "ECU"
-        ]
+        ],
+        "description": "Modify ECU Type"
       }
     }
   },
