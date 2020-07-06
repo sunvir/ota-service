@@ -259,7 +259,7 @@
         ]
       }
     },
-    "/vehicles/{vid}": {
+    "/vehicle": {
       "get": {
         "summary": "Get Vehicle",
         "tags": [
@@ -276,7 +276,10 @@
                       "$ref": "#/components/schemas/Vehicle"
                     },
                     {
-                      "$ref": "#/components/schemas/VehicleInfo"
+                      "$ref": "#/components/schemas/Location"
+                    },
+                    {
+                      "$ref": "#/components/schemas/VehicleType"
                     }
                   ]
                 }
@@ -300,8 +303,8 @@
             }
           }
         },
-        "operationId": "get-vehicles",
-        "description": "Retrieves information on specified vehicle Id.  Can be used to get general information about the vehicle by setting `allInfo` to `true`.",
+        "operationId": "get-vehicle",
+        "description": "Retrieves information on specified vehicle Id.\n  \nDepending on which optional query parameters (e.g. `incLoc`) are sent, additional information is returned if available.",
         "parameters": [
           {
             "schema": {
@@ -309,23 +312,30 @@
               "default": "false"
             },
             "in": "query",
-            "name": "allInfo",
-            "description": "Include all vehicle info if `true`.",
-            "allowEmptyValue": true
+            "name": "incInfo",
+            "description": "Include additional vehicle info"
+          },
+          {
+            "schema": {
+              "type": "boolean",
+              "default": "false"
+            },
+            "in": "query",
+            "name": "incLoc",
+            "description": "include location information"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "vid",
+            "description": "Vehicle Id, could be VIN.",
+            "required": true
           }
         ]
       },
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "vid",
-          "in": "path",
-          "required": true,
-          "description": "Vehicle Id, could be VIN."
-        }
-      ],
+      "parameters": [],
       "post": {
         "summary": "Add New Vehicle",
         "operationId": "post-vehicle",
@@ -341,7 +351,7 @@
             }
           }
         },
-        "description": "Add vehicle to database",
+        "description": "Add vehicle to database.  \n\nThe OTA service provider returns all information known about this vehicle, including information on all ECUs in the vehicle.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -354,6 +364,235 @@
         "tags": [
           "vehicle"
         ]
+      }
+    },
+    "/vehicleType": {
+      "get": {
+        "summary": "Get VehicleType",
+        "tags": [
+          "vehicle"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VehicleType"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-vehicleType",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "vehicleTypeId"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "model"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "oem"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "region"
+          }
+        ],
+        "description": "Returns list of vehicle types that match parameters specified in query."
+      },
+      "post": {
+        "summary": "Create New Vehicle Type",
+        "operationId": "post-vehicleType",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleType"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewVehicleType"
+              }
+            }
+          }
+        },
+        "description": "Add a new vehicle type to the database.",
+        "tags": [
+          "vehicle"
+        ]
+      },
+      "parameters": [],
+      "delete": {
+        "summary": "Delete Vehicle Type",
+        "operationId": "delete-vehicleType",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "vehicleTypeId"
+          }
+        ],
+        "tags": [
+          "vehicle"
+        ],
+        "description": "Delete Vehicle Type"
+      }
+    },
+    "/ecuType": {
+      "get": {
+        "summary": "Get ECU Type information",
+        "tags": [
+          "ECU"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EcuType"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-ecuType",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "ecuTypeId"
+          }
+        ],
+        "description": "Get ECU Type information"
+      },
+      "parameters": [],
+      "post": {
+        "summary": "Add New ECU Type",
+        "operationId": "post-ecuType",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EcuType"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EcuType"
+              }
+            }
+          }
+        },
+        "tags": [
+          "ECU"
+        ],
+        "description": "Add new ECY Type to database"
+      },
+      "delete": {
+        "summary": "Delete ECU Type",
+        "operationId": "delete-ecuType",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "ecuTypeId"
+          }
+        ],
+        "tags": [
+          "ECU"
+        ],
+        "description": "Delete ECU Type"
+      },
+      "patch": {
+        "summary": "Modify ECU Type",
+        "operationId": "patch-ecuType",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EcuType"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "ecuTypeId"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EcuType"
+              }
+            }
+          },
+          "description": ""
+        },
+        "tags": [
+          "ECU"
+        ],
+        "description": "Modify ECU Type"
       }
     }
   },
@@ -394,6 +633,9 @@
         },
         "required": [
           "timestamp"
+        ],
+        "x-tags": [
+          "models"
         ]
       },
       "NewFile": {
@@ -419,6 +661,9 @@
         },
         "required": [
           "filename"
+        ],
+        "x-tags": [
+          "models"
         ]
       },
       "Error": {
@@ -470,9 +715,13 @@
         "title": "Vehicle",
         "type": "object",
         "description": "Vehicle information including status of all managed ECUs in vehicle.",
+        "x-tags": [
+          "models"
+        ],
         "properties": {
           "vid": {
-            "type": "string"
+            "type": "string",
+            "description": "Vehicle ID, could be VIN"
           },
           "ecus": {
             "type": "array",
@@ -493,6 +742,10 @@
           "last_change": {
             "type": "string",
             "format": "date-time"
+          },
+          "vehicleTypeId": {
+            "type": "string",
+            "format": "uuid"
           }
         }
       },
@@ -500,6 +753,9 @@
         "title": "EcuStatus",
         "type": "object",
         "description": "Status of each unique ECU across all managed vehicles.",
+        "x-tags": [
+          "models"
+        ],
         "properties": {
           "ecuId": {
             "type": "string"
@@ -514,42 +770,40 @@
           },
           "ecuType": {
             "type": "string"
+          },
+          "leader": {
+            "type": "boolean",
+            "description": "set `true` if this ECU acts as the Leader (aka Master) in the vehicle."
           }
-        },
-        "x-tags": [
-          "models"
-        ]
+        }
       },
       "NewVehicle": {
         "title": "NewVehicle",
         "type": "object",
+        "x-tags": [
+          "models"
+        ],
         "properties": {
-          "id": {
-            "type": "string"
+          "vid": {
+            "type": "string",
+            "description": "Unique vehicle identifier, could be VIN."
           }
         }
       },
-      "VehicleInfo": {
-        "title": "VehicleInfo",
+      "VehicleType": {
+        "title": "VehicleType",
         "type": "object",
+        "x-tags": [
+          "models"
+        ],
         "properties": {
-          "vid": {
-            "type": "string"
+          "vehicleTypeId": {
+            "type": "string",
+            "description": "Unique identifier for vehicle type",
+            "format": "uuid"
           },
-          "model": {
-            "type": "string"
-          },
-          "oem": {
-            "type": "string"
-          },
-          "color": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "loc": {
-            "$ref": "#/components/schemas/Location"
+          "": {
+            "$ref": "#/components/schemas/NewVehicleType"
           }
         }
       },
@@ -580,6 +834,27 @@
           "lat",
           "long"
         ],
+        "x-tags": [
+          "models"
+        ]
+      },
+      "NewVehicleType": {
+        "title": "NewVehicleType",
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string"
+          },
+          "oem": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          }
+        },
         "x-tags": [
           "models"
         ]
@@ -617,6 +892,9 @@
     },
     {
       "name": "vehicle"
+    },
+    {
+      "name": "ECU"
     }
   ]
 }
