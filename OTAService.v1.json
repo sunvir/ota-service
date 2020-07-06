@@ -5,7 +5,7 @@
     "version": "1.0",
     "description": "API for interacting with Carota OTA update system",
     "contact": {
-      "name": "Sunvir Gujral"
+      "name": "Sunvir Gujral", "email": "sunvir@gmail.com"
     }
   },
   "servers": [
@@ -870,8 +870,8 @@
         "type": "oauth2",
         "flows": {
           "authorizationCode": {
-            "authorizationUrl": "",
-            "tokenUrl": "",
+            "authorizationUrl": "https://example.com/auth",
+            "tokenUrl": "https://example.com/token",
             "refreshUrl": "",
             "scopes": {}
           }
