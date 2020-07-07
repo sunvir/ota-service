@@ -5,7 +5,8 @@
     "version": "1.0",
     "description": "API for interacting with Carota OTA update system",
     "contact": {
-      "name": "Sunvir Gujral", "email": "sunvir@gmail.com"
+      "name": "Sunvir Gujral",
+      "email": "sunvir@gmail.com"
     }
   },
   "servers": [
@@ -531,7 +532,7 @@
         "tags": [
           "ECU"
         ],
-        "description": "Add new ECY Type to database"
+        "description": "Add new ECU Type to database.  If ECU Type already exists, it will be overwritten (modified).\nRerturns added or modified object describing ECU Type."
       },
       "delete": {
         "summary": "Delete ECU Type",
@@ -554,45 +555,6 @@
           "ECU"
         ],
         "description": "Delete ECU Type"
-      },
-      "patch": {
-        "summary": "Modify ECU Type",
-        "operationId": "patch-ecuType",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EcuType"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "ecuTypeId"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EcuType"
-              }
-            }
-          },
-          "description": ""
-        },
-        "tags": [
-          "ECU"
-        ],
-        "description": "Modify ECU Type"
       }
     }
   },
