@@ -5,8 +5,12 @@
     "version": "1.0",
     "description": "API for interacting with Carota OTA update system",
     "contact": {
-      "name": "Sunvir Gujral",
-      "email": "sunvir@gmail.com"
+      "name": "Sunvir Gujral"
+    },
+    "license": {
+      "name": "Modified BSD License",
+      "url": "https://raw.githubusercontent.com/sunvir/ota-service/master/LICENSE"
+
     }
   },
   "servers": [
@@ -352,7 +356,7 @@
             }
           }
         },
-        "description": "Add vehicle to database.  \n\nThe OTA service provider returns all information known about this vehicle, including information on all ECUs in the vehicle.",
+        "description": "Add vehicle to database.  \n\nAfter the vehicle has been added to the database, the OTA service provider returns all information known about this vehicle, including information on all ECUs in the vehicle.",
         "requestBody": {
           "content": {
             "application/json": {
