@@ -6,6 +6,11 @@
     "description": "API for interacting with Carota OTA update system",
     "contact": {
       "name": "Sunvir Gujral"
+    },
+    "license": {
+      "name": "Modified BSD License",
+      "url": "https://raw.githubusercontent.com/sunvir/ota-service/master/LICENSE"
+
     }
   },
   "servers": [
@@ -351,7 +356,7 @@
             }
           }
         },
-        "description": "Add vehicle to database.  \n\nThe OTA service provider returns all information known about this vehicle, including information on all ECUs in the vehicle.",
+        "description": "Add vehicle to database.  \n\nAfter the vehicle has been added to the database, the OTA service provider returns all information known about this vehicle, including information on all ECUs in the vehicle.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -531,7 +536,7 @@
         "tags": [
           "ECU"
         ],
-        "description": "Add new ECY Type to database"
+        "description": "Add new ECU Type to database.  If ECU Type already exists, it will be overwritten (modified).\nRerturns added or modified object describing ECU Type."
       },
       "delete": {
         "summary": "Delete ECU Type",
@@ -554,45 +559,6 @@
           "ECU"
         ],
         "description": "Delete ECU Type"
-      },
-      "patch": {
-        "summary": "Modify ECU Type",
-        "operationId": "patch-ecuType",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EcuType"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "ecuTypeId"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EcuType"
-              }
-            }
-          },
-          "description": ""
-        },
-        "tags": [
-          "ECU"
-        ],
-        "description": "Modify ECU Type"
       }
     }
   },
@@ -870,8 +836,8 @@
         "type": "oauth2",
         "flows": {
           "authorizationCode": {
-            "authorizationUrl": "",
-            "tokenUrl": "",
+            "authorizationUrl": "https://example.com/auth",
+            "tokenUrl": "https://example.com/token",
             "refreshUrl": "",
             "scopes": {}
           }
