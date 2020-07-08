@@ -10,7 +10,6 @@
     "license": {
       "name": "Modified BSD License",
       "url": "https://raw.githubusercontent.com/sunvir/ota-service/master/LICENSE"
-
     }
   },
   "servers": [
@@ -160,7 +159,6 @@
       "get": {
         "summary": "Generate Diff Package",
         "tags": [
-          "operations",
           "diff"
         ],
         "responses": {
@@ -259,7 +257,6 @@
         ],
         "description": "Check if a diffpkg is ready.",
         "tags": [
-          "operations",
           "diff"
         ]
       }
@@ -847,9 +844,6 @@
     }
   },
   "tags": [
-    {
-      "name": "operations"
-    },
     {
       "name": "diff"
     },
