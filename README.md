@@ -14,4 +14,5 @@ Using this API, you can:
   - [API Reference](https://sunvir.github.io/ota-service/apispec.html)
   - [Simplified - readonly](https://sunvir.github.io/ota-service/apispec-readview.html)
   - [Another rendering](https://sunvir.stoplight.io/docs/ota-service/OTAService.json)
+  - [PDF](https://sunvir.github.io/ota-service/apispec-pdf.html)
 - [Try out API](https://sunvir.stoplight.io/docs/ota-service/OTAService.json)
